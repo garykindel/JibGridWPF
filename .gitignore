@@ -1,0 +1,8 @@
+/Jib.WPF.Controls/bin
+/Jib.WPF.Testbed/bin
+/Jib.WPF.Testbed/obj
+/Jib.WPF.Controls/obj
+/.vs/Jib.WPF/v16/Server/sqlite3/db.lock
+/.vs/Jib.WPF/v16/Server/sqlite3/storage.ide
+/.vs/Jib.WPF/v16/Server/sqlite3/storage.ide-shm
+/.vs/Jib.WPF/v16/Server/sqlite3/storage.ide-wal
