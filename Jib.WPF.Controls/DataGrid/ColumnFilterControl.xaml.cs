@@ -325,35 +325,38 @@ namespace Jib.WPF.Controls.DataGrid
 
         protected Predicate<object> GenerateFilterPredicate(string propertyName, string filterValue, Type objType, Type propType, FilterOperationItem filterItem)
         {
-            ParameterExpression objParam = System.Linq.Expressions.Expression.Parameter(typeof(object), "x");
-            UnaryExpression param = System.Linq.Expressions.Expression.TypeAs(objParam, objType);
-            var prop = System.Linq.Expressions.Expression.Property(param, propertyName);
-            var val = System.Linq.Expressions.Expression.Constant(filterValue);
-
-            switch (filterItem.FilterOption)
+            if (filterItem != null)
             {
-                case Enums.FilterOperation.Contains:
-                    return ExpressionHelper.GenerateGeneric(prop, val, propType, objParam, "Contains");
-                case Enums.FilterOperation.EndsWith:
-                    return ExpressionHelper.GenerateGeneric(prop, val, propType, objParam, "EndsWith");
-                case Enums.FilterOperation.StartsWith:
-                    return ExpressionHelper.GenerateGeneric(prop, val, propType, objParam, "StartsWith");
-                case Enums.FilterOperation.Equals:
-                    return ExpressionHelper.GenerateEquals(prop, filterValue, propType, objParam);
-                case Enums.FilterOperation.NotEquals:
-                    return ExpressionHelper.GenerateNotEquals(prop, filterValue, propType, objParam);
-                case Enums.FilterOperation.GreaterThanEqual:
-                    return ExpressionHelper.GenerateGreaterThanEqual(prop, filterValue, propType, objParam);
-                case Enums.FilterOperation.LessThanEqual:
-                    return ExpressionHelper.GenerateLessThanEqual(prop, filterValue, propType, objParam);
-                case Enums.FilterOperation.GreaterThan:
-                    return ExpressionHelper.GenerateGreaterThan(prop, filterValue, propType, objParam);
-                case Enums.FilterOperation.LessThan:
-                    return ExpressionHelper.GenerateLessThan(prop, filterValue, propType, objParam);
-                default:
-                    throw new ArgumentException("Could not decode Search Mode.  Did you add a new value to the enum, or send in Unknown?");
-            }
+                ParameterExpression objParam = System.Linq.Expressions.Expression.Parameter(typeof(object), "x");
+                UnaryExpression param = System.Linq.Expressions.Expression.TypeAs(objParam, objType);
+                var prop = System.Linq.Expressions.Expression.Property(param, propertyName);
+                var val = System.Linq.Expressions.Expression.Constant(filterValue);
 
+                switch (filterItem.FilterOption)
+                {
+                    case Enums.FilterOperation.Contains:
+                        return ExpressionHelper.GenerateGeneric(prop, val, propType, objParam, "Contains");
+                    case Enums.FilterOperation.EndsWith:
+                        return ExpressionHelper.GenerateGeneric(prop, val, propType, objParam, "EndsWith");
+                    case Enums.FilterOperation.StartsWith:
+                        return ExpressionHelper.GenerateGeneric(prop, val, propType, objParam, "StartsWith");
+                    case Enums.FilterOperation.Equals:
+                        return ExpressionHelper.GenerateEquals(prop, filterValue, propType, objParam);
+                    case Enums.FilterOperation.NotEquals:
+                        return ExpressionHelper.GenerateNotEquals(prop, filterValue, propType, objParam);
+                    case Enums.FilterOperation.GreaterThanEqual:
+                        return ExpressionHelper.GenerateGreaterThanEqual(prop, filterValue, propType, objParam);
+                    case Enums.FilterOperation.LessThanEqual:
+                        return ExpressionHelper.GenerateLessThanEqual(prop, filterValue, propType, objParam);
+                    case Enums.FilterOperation.GreaterThan:
+                        return ExpressionHelper.GenerateGreaterThan(prop, filterValue, propType, objParam);
+                    case Enums.FilterOperation.LessThan:
+                        return ExpressionHelper.GenerateLessThan(prop, filterValue, propType, objParam);
+                    default:
+                        throw new ArgumentException("Could not decode Search Mode.  Did you add a new value to the enum, or send in Unknown?");
+                }
+            }
+            return null;
         }
 
         public void ResetControl()
