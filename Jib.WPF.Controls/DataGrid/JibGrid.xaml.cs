@@ -55,18 +55,21 @@ namespace Jib.WPF.Controls.DataGrid
                 }
         }
 
+        public Type SourceType { get; set; }
+
         public static void OnFilteredItemsSourceChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             JibGrid g = sender as JibGrid;
             if (g != null)
             {
-                var list = (IEnumerable)e.NewValue;
+                IEnumerable list = (IEnumerable)e.NewValue;             
                 var view = new CollectionViewSource();
                 view.Source = list;
-                Type srcT = e.NewValue.GetType().GetInterfaces().First(i => i.Name.StartsWith("IEnumerable"));
+                Type srcT = e.NewValue.GetType().GetInterfaces().First(i => i.Name.StartsWith("IEnumerable"));               
                 g.FilterType = srcT.GetGenericArguments().First();
                 g.ItemsSource = CollectionViewSource.GetDefaultView(list);
-                if (g.Filters != null)
+                
+                if (g.Filters != null)                
                     foreach (var filter in g.Filters)
                         filter.ResetControl();
 

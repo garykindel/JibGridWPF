@@ -36,11 +36,11 @@ namespace Jib.WPF.Controls.DataGrid
                         propInfo = boundObjectType.GetType().GetProperty(binding.Path.Path);
 
                     if (propInfo == null && grid.HasItems)
-                    {
-                        propInfo = grid.Items.CurrentItem.GetType().GetProperty(binding.Path.Path);                       
+                    {                        
+                        if (grid.SourceType == null) grid.SourceType = grid.Items.CurrentItem.GetType();
+                        propInfo = grid.SourceType.GetProperty(binding.Path.Path);                       
                     }
-
-
+                    
                     //propInfo = boundObjectType.GetType().GetProperties().FirstOrDefault();
                     //if (propInfo == null) propInfo = boundObjectType.GetProperty("FullName");
 
