@@ -60,7 +60,7 @@ namespace Jib.WPF.Controls.DataGrid
         public static void OnFilteredItemsSourceChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             JibGrid g = sender as JibGrid;
-            if (g != null)
+            if (g != null && e.NewValue!=null)
             {
                 IEnumerable list = (IEnumerable)e.NewValue;             
                 var view = new CollectionViewSource();
